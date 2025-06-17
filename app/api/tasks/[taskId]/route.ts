@@ -12,7 +12,7 @@ export async function GET(
     return new NextResponse('Unauthorized', { status: 401 });
   }
 
-  const { taskId } = await params;
+  const { taskId } = params;
 
   try {
     const task = await prisma.task.findUnique({
@@ -53,7 +53,7 @@ export async function PUT(
     return new NextResponse('Unauthorized', { status: 401 });
   }
 
-  const { taskId } = await params;
+  const { taskId } = params;
 
   try {
     const body = await request.json();
@@ -176,7 +176,7 @@ export async function DELETE(
     return new NextResponse('Unauthorized', { status: 401 });
   }
 
-  const { taskId } = await params;
+  const { taskId } = params;
 
   try {
     const task = await prisma.task.findUnique({
