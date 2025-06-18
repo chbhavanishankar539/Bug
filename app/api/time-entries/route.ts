@@ -8,7 +8,7 @@ export async function POST(request: Request) {
     const session = await getServerSession(authOptions);
 
     if (!session) {
-      return new NextResponse('Unauthorized', { status: 401 });
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     const body = await request.json();
@@ -23,7 +23,7 @@ export async function POST(request: Request) {
     });
 
     if (activeTimeEntry) {
-      return new NextResponse('You already have an active time entry', { status: 400 });
+      return NextResponse.json({ error: 'You already have an active time entry' }, { status: 400 });
     }
 
     const timeEntry = await prisma.timeEntry.create({
@@ -37,7 +37,10 @@ export async function POST(request: Request) {
     return NextResponse.json(timeEntry);
   } catch (error) {
     console.error('Error creating time entry:', error);
-    return new NextResponse('Internal Server Error', { status: 500 });
+    return NextResponse.json(
+      { error: 'Internal Server Error' },
+      { status: 500 }
+    );
   }
 }
 
@@ -46,7 +49,7 @@ export async function GET(request: Request) {
     const session = await getServerSession(authOptions);
 
     if (!session) {
-      return new NextResponse('Unauthorized', { status: 401 });
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     const { searchParams } = new URL(request.url);
@@ -72,6 +75,9 @@ export async function GET(request: Request) {
     return NextResponse.json(timeEntries);
   } catch (error) {
     console.error('Error fetching time entries:', error);
-    return new NextResponse('Internal Server Error', { status: 500 });
+    return NextResponse.json(
+      { error: 'Internal Server Error' },
+      { status: 500 }
+    );
   }
 } 

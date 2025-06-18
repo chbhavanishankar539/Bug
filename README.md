@@ -16,7 +16,7 @@ A modern bug and task tracking application built with Next.js, TypeScript, and T
 - Next.js 14
 - TypeScript
 - Tailwind CSS
-- Prisma (SQLite)
+- Prisma (PostgreSQL)
 - NextAuth.js
 - Zustand (State Management)
 - Recharts (Data Visualization)
@@ -26,6 +26,7 @@ A modern bug and task tracking application built with Next.js, TypeScript, and T
 
 - Node.js 18.x or later
 - npm or yarn
+- PostgreSQL database
 
 ## Getting Started
 
@@ -48,6 +49,7 @@ A modern bug and task tracking application built with Next.js, TypeScript, and T
 
 4. Create a `.env` file in the root directory with the following variables:
    ```
+   DATABASE_URL="postgresql://username:password@localhost:5432/bugtracker"
    NEXTAUTH_SECRET=your-secret-key
    NEXTAUTH_URL=http://localhost:3000
    ```
@@ -58,6 +60,10 @@ A modern bug and task tracking application built with Next.js, TypeScript, and T
    ```
 
 6. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Production Deployment
+
+For production deployment, see [SETUP.md](./SETUP.md) for detailed instructions.
 
 ## Project Structure
 
