@@ -137,77 +137,91 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-          <div className="flex items-center space-x-4">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Search tasks..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              />
-              <MagnifyingGlassIcon className="h-5 w-5 text-gray-400 absolute left-3 top-2.5" />
+        {/* Header Section - Mobile Responsive */}
+        <div className="mb-6">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center space-y-4 sm:space-y-0">
+            <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
+            
+            {/* Search and Filter Section - Mobile Responsive */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center space-y-3 sm:space-y-0 sm:space-x-4">
+              {/* Search Input */}
+              <div className="relative flex-1 sm:flex-none">
+                <input
+                  type="text"
+                  placeholder="Search tasks..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                />
+                <MagnifyingGlassIcon className="h-5 w-5 text-gray-400 absolute left-3 top-2.5" />
+              </div>
+              
+              {/* Filter Button */}
+              <button
+                onClick={() => setShowFilters(!showFilters)}
+                className="flex items-center justify-center px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors"
+              >
+                <FunnelIcon className="h-5 w-5 mr-2" />
+                <span className="hidden sm:inline">Filters</span>
+              </button>
             </div>
-            <button
-              onClick={() => setShowFilters(!showFilters)}
-              className="p-2 text-gray-600 hover:text-gray-900"
-            >
-              <FunnelIcon className="h-5 w-5" />
-            </button>
           </div>
         </div>
 
+        {/* Filter Buttons - Mobile Responsive */}
         {showFilters && session?.user?.role === 'MANAGER' && (
-          <div className="mb-6 flex gap-2 p-4 bg-gray-50 rounded-lg shadow-sm">
-            <button
-              className={`px-4 py-2 rounded-lg transition-colors ${
-                filter === 'ALL' ? 'bg-red-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-100'
-              }`}
-              onClick={() => setFilter('ALL')}
-            >
-              All
-            </button>
-            <button
-              className={`px-4 py-2 rounded-lg transition-colors ${
-                filter === 'OPEN' ? 'bg-red-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-100'
-              }`}
-              onClick={() => setFilter('OPEN')}
-            >
-              Open
-            </button>
-            <button
-              className={`px-4 py-2 rounded-lg transition-colors ${
-                filter === 'CLOSED' ? 'bg-red-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-100'
-              }`}
-              onClick={() => setFilter('CLOSED')}
-            >
-              Closed
-            </button>
+          <div className="mb-6 p-4 bg-gray-50 rounded-lg shadow-sm">
+            <div className="flex flex-wrap gap-2">
+              <button
+                className={`px-4 py-2 rounded-lg transition-colors text-sm sm:text-base ${
+                  filter === 'ALL' ? 'bg-red-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-100'
+                }`}
+                onClick={() => setFilter('ALL')}
+              >
+                All
+              </button>
+              <button
+                className={`px-4 py-2 rounded-lg transition-colors text-sm sm:text-base ${
+                  filter === 'OPEN' ? 'bg-red-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-100'
+                }`}
+                onClick={() => setFilter('OPEN')}
+              >
+                Open
+              </button>
+              <button
+                className={`px-4 py-2 rounded-lg transition-colors text-sm sm:text-base ${
+                  filter === 'CLOSED' ? 'bg-red-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-100'
+                }`}
+                onClick={() => setFilter('CLOSED')}
+              >
+                Closed
+              </button>
+            </div>
           </div>
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-          <div className="bg-white rounded-lg shadow-md p-6 transform hover:scale-105 transition-transform duration-200">
-            <h3 className="text-sm font-medium text-gray-500">Total Tasks</h3>
-            <p className="mt-2 text-3xl font-semibold text-gray-900">{stats.total}</p>
+        {/* Stats Cards - Mobile Responsive */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 transform hover:scale-105 transition-transform duration-200">
+            <h3 className="text-xs sm:text-sm font-medium text-gray-500">Total Tasks</h3>
+            <p className="mt-2 text-2xl sm:text-3xl font-semibold text-gray-900">{stats.total}</p>
           </div>
-          <div className="bg-white rounded-lg shadow-md p-6 transform hover:scale-105 transition-transform duration-200">
-            <h3 className="text-sm font-medium text-gray-500">Open Tasks</h3>
-            <p className="mt-2 text-3xl font-semibold text-red-600">{stats.open}</p>
+          <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 transform hover:scale-105 transition-transform duration-200">
+            <h3 className="text-xs sm:text-sm font-medium text-gray-500">Open Tasks</h3>
+            <p className="mt-2 text-2xl sm:text-3xl font-semibold text-red-600">{stats.open}</p>
           </div>
-          <div className="bg-white rounded-lg shadow-md p-6 transform hover:scale-105 transition-transform duration-200">
-            <h3 className="text-sm font-medium text-gray-500">In Progress</h3>
-            <p className="mt-2 text-3xl font-semibold text-yellow-600">{stats.inProgress}</p>
+          <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 transform hover:scale-105 transition-transform duration-200">
+            <h3 className="text-xs sm:text-sm font-medium text-gray-500">In Progress</h3>
+            <p className="mt-2 text-2xl sm:text-3xl font-semibold text-yellow-600">{stats.inProgress}</p>
           </div>
-          <div className="bg-white rounded-lg shadow-md p-6 transform hover:scale-105 transition-transform duration-200">
-            <h3 className="text-sm font-medium text-gray-500">Closed Tasks</h3>
-            <p className="mt-2 text-3xl font-semibold text-green-600">{stats.closed}</p>
+          <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 transform hover:scale-105 transition-transform duration-200">
+            <h3 className="text-xs sm:text-sm font-medium text-gray-500">Closed Tasks</h3>
+            <p className="mt-2 text-2xl sm:text-3xl font-semibold text-green-600">{stats.closed}</p>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow-md p-6 mb-8">
+        {/* Chart Section */}
+        <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 mb-8">
           <h2 className="text-lg font-medium text-gray-900 mb-4">Task Trends</h2>
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
@@ -228,37 +242,38 @@ export default function DashboardPage() {
           </div>
         )}
 
+        {/* Tasks Table - Mobile Responsive */}
         <div className="bg-white rounded-lg shadow-md overflow-hidden">
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Priority</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Assignee</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Due Date</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                  <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Title</th>
+                  <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                  <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Priority</th>
+                  <th className="hidden sm:table-cell px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Assignee</th>
+                  <th className="hidden lg:table-cell px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Due Date</th>
+                  <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {filteredTasks.map(task => (
                   <tr key={task.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4">
+                    <td className="px-3 sm:px-6 py-4">
                       <div className="text-sm font-medium text-gray-900">{task.title}</div>
                       <div className="text-sm text-gray-500 line-clamp-2">{task.description}</div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
                       <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${statusColors[task.status]}`}>
                         {task.status.replace('_', ' ')}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
                       <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${priorityColors[task.priority]}`}>
                         {task.priority}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    <td className="hidden sm:table-cell px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
                         <div className="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center">
                           <span className="text-sm font-medium text-gray-600">
@@ -271,7 +286,7 @@ export default function DashboardPage() {
                         </div>
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="hidden lg:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       {task.dueDate ? (
                         <div>
                           <div className="font-medium text-gray-900">
@@ -285,7 +300,7 @@ export default function DashboardPage() {
                         'No due date'
                       )}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm font-medium">
                       <Link
                         href={`/tasks/${task.id}/edit`}
                         className="text-red-600 hover:text-red-900 transition-colors"
